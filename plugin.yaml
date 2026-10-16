@@ -1,0 +1,11 @@
+name: glyphwake
+version: "0.1.0"
+description: "Click the empty chat in Hermes Desktop and a wave of ASCII characters decodes into a NOUS RESEARCH or HERMES AGENT wordmark."
+author: Adolanium
+manifest_version: 1
+kind: standalone
+requires_hermes: ">=0.21.6"
+provides_tools: []
+provides_hooks: []
+provides_middleware: []
+requires_env: []
