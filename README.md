@@ -8,7 +8,7 @@
 
   **Click the empty chat. Watch it spell itself.**
 
-  <sub>POWERED BY <a href="https://github.com/NousResearch/hermes-agent">HERMES AGENT</a> &nbsp;·&nbsp; COMMUNITY PLUGIN &nbsp;·&nbsp; VERSION 0.1.1</sub>
+  <sub>POWERED BY <a href="https://github.com/NousResearch/hermes-agent">HERMES AGENT</a> &nbsp;·&nbsp; COMMUNITY PLUGIN &nbsp;·&nbsp; VERSION 0.1.2</sub>
 
 </div>
 
@@ -16,8 +16,8 @@
 
 Glyphwake is a small Hermes Desktop plugin. Click anywhere on the background of
 an empty chat and a wave of scrambling characters rolls out from the pointer.
-Where it passes, the noise decodes into **K'os Mos** or **Kitsune**,
-holds for a moment, then dissolves.
+Where it passes, the noise decodes into **Kitsune** — or into text of your own,
+set in the plugin's settings — holds for a moment, then dissolves.
 
 - The wordmark uses Collapse, the typeface Hermes uses for its own lettering, and
   each letter is made of letters.
@@ -43,12 +43,13 @@ no agent tools, hooks, network calls or build step.
 ## Settings
 
 Go to **Settings → Plugins → Glyphwake** to choose what the wave decodes into:
-both wordmarks in turn (the default), only **K'os Mos**, only
-**Kitsune**, or the wave with no wordmark.
+**Kitsune**, **Custom** — any text you type in the field that appears below the
+choice — or the wave with no wordmark at all.
 
 ## What it touches
 
-- One saved preference, through the plugin SDK's storage.
+- Its settings (the wordmark choice and any custom text), through the plugin
+SDK's storage.
 - A decorative `<canvas aria-hidden>` in the chat area, removed when you turn
   the plugin off.
 - The intro splash's opacity while a wordmark is showing. The original value is

@@ -11,8 +11,8 @@
  * plugin goes quiet rather than breaking anything.
  */
 
-import { atom, ListRow, SegmentedControl, useValue } from '@hermes/plugin-sdk'
-import { jsx } from 'react/jsx-runtime'
+import { atom, Input, ListRow, SegmentedControl, useValue } from '@hermes/plugin-sdk'
+import { Fragment, jsx, jsxs } from 'react/jsx-runtime'
 
 const BOUNDS = '[data-slot="composer-bounds"]'
 const THREAD = '[data-slot="thread"]'
@@ -36,15 +36,11 @@ const INTERACTIVE = [
   '[data-slot="composer-root"]'
 ].join(',')
 
-const WORDMARKS = {
-  kos: ["K'os", 'Mos'],
-  kitsune: ['Kitsune']
-}
+const KITSUNE = ['Kitsune']
 
 const MODES = [
-  { id: 'alternate', label: 'Alternate' },
-  { id: 'kos', label: "K'os Mos" },
   { id: 'kitsune', label: 'Kitsune' },
+  { id: 'custom', label: 'Custom' },
   { id: 'off', label: 'Noise only' }
 ]
 
@@ -393,12 +389,27 @@ class RippleLayer {
 }
 
 function SettingsPage({ prefs, update }) {
-  const { mode } = useValue(prefs)
+  const { mode, text } = useValue(prefs)
 
-  return jsx(ListRow, {
-    action: jsx(SegmentedControl, { onChange: value => update({ mode: value }), options: MODES, value: mode }),
-    description: 'What the wave decodes into when you click the empty chat. Alternate swaps on every click.',
-    title: 'Wordmark'
+  return jsxs(Fragment, {
+    children: [
+      jsx(ListRow, {
+        action: jsx(SegmentedControl, { onChange: value => update({ mode: value }), options: MODES, value: mode }),
+        description: 'What the wave decodes into when you click the empty chat.',
+        title: 'Wordmark'
+      }),
+      mode === 'custom' &&
+        jsx(ListRow, {
+          action: jsx(Input, {
+            maxLength: 40,
+            onChange: event => update({ text: event.target.value }),
+            placeholder: 'Your own words',
+            value: text
+          }),
+          description: 'Set as large as the chat allows: each word gets its own line where that reads bigger.',
+          title: 'Custom text'
+        })
+    ]
   })
 }
 
@@ -406,7 +417,7 @@ export default {
   id: 'glyphwake',
   name: 'Glyphwake',
   register(ctx) {
-    const prefs = atom({ mode: 'alternate', ...ctx.storage.get('prefs', {}) })
+    const prefs = atom({ mode: 'kitsune', text: '', ...ctx.storage.get('prefs', {}) })
 
     const update = patch => {
       prefs.set({ ...prefs.get(), ...patch })
@@ -429,18 +440,23 @@ export default {
     document.fonts?.load(`700 64px ${WORDMARK_FONT}`).catch(() => {})
 
     const layers = new Map()
-    let clicks = 0
 
     const nextWord = () => {
-      const { mode } = prefs.get()
+      const { mode, text } = prefs.get()
 
       if (mode === 'off') {
         return null
       }
 
-      // A pref saved by an older version names a wordmark that no longer
-      // exists; fall back to alternating rather than decoding into nothing.
-      return WORDMARKS[mode] ?? (clicks++ % 2 ? WORDMARKS.kitsune : WORDMARKS.kos)
+      if (mode !== 'custom') {
+        return KITSUNE
+      }
+
+      // One line per word. An empty field draws no mark at all: a mark with no
+      // ink would still step the splash back behind nothing.
+      const lines = text.trim().split(/\s+/).filter(Boolean)
+
+      return lines.length ? lines : null
     }
 
     const layerFor = bounds => {
