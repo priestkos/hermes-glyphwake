@@ -1,7 +1,7 @@
 /**
  * Glyphwake — click the blank new-chat canvas and a wave of scrambling
  * characters rolls out from the pointer. Where it passes, the noise decodes
- * into an ASCII wordmark (NOUS RESEARCH / HERMES AGENT) set in the app's own
+ * into an ASCII wordmark (K'os Mos / Kitsune) set in the app's own
  * Collapse face, holds for a beat, then dissolves back into nothing.
  *
  * There is no SDK slot behind the empty chat, so the canvas goes into the
@@ -37,14 +37,14 @@ const INTERACTIVE = [
 ].join(',')
 
 const WORDMARKS = {
-  nous: ['NOUS', 'RESEARCH'],
-  hermes: ['HERMES', 'AGENT']
+  kos: ["K'os", 'Mos'],
+  kitsune: ['Kitsune']
 }
 
 const MODES = [
   { id: 'alternate', label: 'Alternate' },
-  { id: 'nous', label: 'Nous Research' },
-  { id: 'hermes', label: 'Hermes Agent' },
+  { id: 'kos', label: "K'os Mos" },
+  { id: 'kitsune', label: 'Kitsune' },
   { id: 'off', label: 'Noise only' }
 ]
 
@@ -438,7 +438,9 @@ export default {
         return null
       }
 
-      return mode === 'alternate' ? (clicks++ % 2 ? WORDMARKS.hermes : WORDMARKS.nous) : WORDMARKS[mode]
+      // A pref saved by an older version names a wordmark that no longer
+      // exists; fall back to alternating rather than decoding into nothing.
+      return WORDMARKS[mode] ?? (clicks++ % 2 ? WORDMARKS.kitsune : WORDMARKS.kos)
     }
 
     const layerFor = bounds => {

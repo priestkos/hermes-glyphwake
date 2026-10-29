@@ -8,7 +8,7 @@
 
   **Click the empty chat. Watch it spell itself.**
 
-  <sub>POWERED BY <a href="https://github.com/NousResearch/hermes-agent">HERMES AGENT</a> &nbsp;·&nbsp; COMMUNITY PLUGIN &nbsp;·&nbsp; VERSION 0.1.0</sub>
+  <sub>POWERED BY <a href="https://github.com/NousResearch/hermes-agent">HERMES AGENT</a> &nbsp;·&nbsp; COMMUNITY PLUGIN &nbsp;·&nbsp; VERSION 0.1.1</sub>
 
 </div>
 
@@ -16,7 +16,7 @@
 
 Glyphwake is a small Hermes Desktop plugin. Click anywhere on the background of
 an empty chat and a wave of scrambling characters rolls out from the pointer.
-Where it passes, the noise decodes into **NOUS RESEARCH** or **HERMES AGENT**,
+Where it passes, the noise decodes into **K'os Mos** or **Kitsune**,
 holds for a moment, then dissolves.
 
 - The wordmark uses Collapse, the typeface Hermes uses for its own lettering, and
@@ -31,7 +31,7 @@ holds for a moment, then dissolves.
 ## Install
 
 ```sh
-hermes plugins install Adolanium/hermes-glyphwake
+hermes plugins install priestkos/hermes-glyphwake
 ```
 
 Then open **Capabilities → Plugins** in Hermes Desktop and turn on
@@ -43,8 +43,8 @@ no agent tools, hooks, network calls or build step.
 ## Settings
 
 Go to **Settings → Plugins → Glyphwake** to choose what the wave decodes into:
-both wordmarks in turn (the default), only **Nous Research**, only
-**Hermes Agent**, or the wave with no wordmark.
+both wordmarks in turn (the default), only **K'os Mos**, only
+**Kitsune**, or the wave with no wordmark.
 
 ## What it touches
 
