@@ -59,6 +59,16 @@ Desktop's plugin SDK has no slot behind the empty chat yet, so Glyphwake finds
 the chat area through Desktop's own markup. If a Desktop update changes that
 markup, the effect switches off. Nothing else breaks.
 
+## Test
+
+```
+node --test
+```
+
+`test/glyphwake.test.mjs` loads the real `desktop/plugin.js` with stub SDK
+modules, clicks a fake empty chat, and asserts what the wordmark is
+rasterised from for each setting. No build step, no dependencies.
+
 ## License
 
 MIT
