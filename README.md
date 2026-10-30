@@ -21,8 +21,10 @@ set in the plugin's settings — holds for a moment, then dissolves.
 
 - The wordmark uses Collapse, the typeface Hermes uses for its own lettering, and
   each letter is made of letters.
-- It forms around the point you click. The intro splash fades back while it
-  shows and returns as it dissolves.
+- It forms around the point you click, set as large as the chat allows and kept
+  clear of the composer. Clicks in quick succession layer up to four waves.
+- The intro splash steps back while a wordmark shows and returns as it
+  dissolves.
 - Colors come from your theme, so it works in light, dark and custom themes.
 - It runs only on a chat with no messages yet, with the intro splash on or off.
   Clicks on the composer, buttons, links and inputs work as usual.
@@ -42,9 +44,16 @@ no agent tools, hooks, network calls or build step.
 
 ## Settings
 
-Go to **Settings → Plugins → Glyphwake** to choose what the wave decodes into:
-**Kitsune**, **Custom** — any text you type in the field that appears below the
-choice — or the wave with no wordmark at all.
+**Settings → Plugins → Glyphwake** picks what the wave decodes into.
+
+- **Kitsune** — the default. One word, set as large as the chat allows.
+- **Custom** — a text field appears under the choice, up to 40 characters. Your
+  text is split on whitespace so each word can take its own line — a short
+  stack reads larger than one long run of words — and whichever layout reads
+  bigger is the one set, scaled to fit the chat. An empty or blank field draws
+  no wordmark at all: the splash is left alone rather than stepped back behind a
+  mark with no ink in it.
+- **Noise only** — the wave rolls out and dissolves without ever forming a mark.
 
 ## What it touches
 
@@ -65,9 +74,25 @@ markup, the effect switches off. Nothing else breaks.
 node --test
 ```
 
-`test/glyphwake.test.mjs` loads the real `desktop/plugin.js` with stub SDK
-modules, clicks a fake empty chat, and asserts what the wordmark is
-rasterised from for each setting. No build step, no dependencies.
+`test/glyphwake.test.mjs` loads the real `desktop/plugin.js` with stub SDK and
+DOM modules, clicks a fake empty chat, and asserts which lines the wordmark is
+rasterised from for each setting: Kitsune by default, one line per word for
+Custom, nothing for an empty field or noise only, and Kitsune again for settings
+saved by an older version. No build step, no dependencies.
+
+## Since 0.1.0
+
+This fork sets its own wordmark and adds the settings to change it.
+
+- The alternating **NOUS RESEARCH** / **HERMES AGENT** wordmarks are gone.
+  **Kitsune** is the built-in mark and **Custom** takes any text you want. A
+  K'os Mos mark shipped in 0.1.1 and was dropped in 0.1.2.
+- A Custom field that is empty, or only whitespace, draws nothing rather than
+  dimming the splash behind a mark with no ink in it.
+- Settings saved by 0.1.0 still load: a mode the plugin no longer has falls back
+  to Kitsune instead of drawing nothing.
+- Install from this fork — `priestkos/hermes-glyphwake` — rather than upstream.
+- The wordmark logic is covered by `node --test`.
 
 ## License
 
