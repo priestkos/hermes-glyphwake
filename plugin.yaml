@@ -1,7 +1,7 @@
 name: glyphwake
 version: "0.1.2"
 description: "Click the empty chat in Hermes Desktop and a wave of ASCII characters decodes into a wordmark — Kitsune, or text you set."
-author: Adolanium
+author: PriestKos
 manifest_version: 1
 kind: standalone
 requires_hermes: ">=0.21.6"
